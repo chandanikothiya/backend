@@ -1,30 +1,21 @@
 const express = require('express');
 const { categoryController } = require('../../../controller');
+const upload = require('../../../middleware/upload');
 const router = express.Router();
 
 //http://localhost:8080/api/v1/category/getallCategory
-router.get('/getallCategory',(req,res) => {
-    res.status(200).json({message:'all category fetch'})
-})
+router.get('/getallCategory',categoryController.getallCategories)
 
 
-router.get('/getCategory',(req,res) => {
-    res.status(200).json({id:1,name:'uiux'})
-})
+router.get('/getCategory/:id',categoryController.getCategories)
 
 
-router.post('/addCategory',categoryController.addCategories)
+router.post('/addCategory',upload.single('category_img'),categoryController.addCategories)
 
 
-router.put('/updateCategory/:id',(req,res) => {
-    console.log(req.params.id)
-    res.status(200).json({message:'update category'})
-})
+router.put('/updateCategory/:id',categoryController.updateCategories)
 
 
-router.delete('/deleteCategory/:id',(req,res) => {
-    console.log(req.params.id)
-    res.status(200).json({message:'delete category'})
-})
+router.delete('/deleteCategory/:id',categoryController.deleteCategories)
 
 module.exports = router
