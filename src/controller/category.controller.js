@@ -1,4 +1,5 @@
 const categories = require("../models/category.model")
+const fs = require("fs")
 
 const getallCategories = async (req, res) => {
     try {
@@ -74,6 +75,9 @@ const updateCategories = async (req, res) => {
 const deleteCategories = async (req, res) => {
     try {
         const category = await categories.findByIdAndDelete(req.params.id)
+        fs.unlink(category.category_img,(err) => {
+            console.log(err)
+        })
 
         if (!category) {
             return res.status(400).json({ data: null, message: "category not delete" })
