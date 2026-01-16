@@ -55,9 +55,22 @@ const addCategories = async (req, res) => {
 
 const updateCategories = async (req, res) => {
     try {
+
+        const categorydata = await categories.findById(req.params.id);
+
+        let updatedata = {...req.body}
+
+        if (req.file) {
+            fs.unlink(categorydata.category_img,(error) => {
+                console.log(error)
+            })
+
+            updatedata.category_img = req.file.path
+        }
+
         const category = await categories.findByIdAndUpdate(
             req.params.id,
-            req.body,
+            updatedata,
             { new: true, runValidators: true }
         )
 
@@ -75,13 +88,14 @@ const updateCategories = async (req, res) => {
 const deleteCategories = async (req, res) => {
     try {
         const category = await categories.findByIdAndDelete(req.params.id)
-        fs.unlink(category.category_img,(err) => {
-            console.log(err)
-        })
 
         if (!category) {
             return res.status(400).json({ data: null, message: "category not delete" })
         }
+
+        fs.unlink(category.category_img,(err) => {
+            console.log(error)
+        })
 
         return res.status(200).json({ data: category, message: "category delete succesfully" })
 

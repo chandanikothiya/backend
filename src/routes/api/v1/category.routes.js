@@ -13,7 +13,7 @@ router.get('/getCategory/:id',categoryController.getCategories)
 router.post('/addCategory',upload.single('category_img'),categoryController.addCategories)
 
 
-router.put('/updateCategory/:id',categoryController.updateCategories)
+router.put('/updateCategory/:id',upload.single('category_img'),categoryController.updateCategories)
 
 
 router.delete('/deleteCategory/:id',categoryController.deleteCategories)

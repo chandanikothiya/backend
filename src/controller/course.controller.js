@@ -36,7 +36,7 @@ const getCourses = async (req, res) => {
 const addCourses = async (req, res) => {
     // console.log(req.body)
     try {
-        const course = await courses.create({...req.body,course_img:req.file.path})
+        const course = await courses.create({ ...req.body, course_img: req.file.path })
 
         if (!course) {
             return res.status(400).json({ data: null, message: "course data not add" })
@@ -50,10 +50,22 @@ const addCourses = async (req, res) => {
 const updateCourses = async (req, res) => {
     try {
 
+        const coursedata = await courses.findById(req.params.id);
+
+        let updatedata = {...req.body}
+
+        if (req.file) {
+            fs.unlink(coursedata.course_img, (error) => {
+                console.log(error)
+            })
+
+            updatedata.course_img = req.file.path
+        }
+
         const course = await courses.findByIdAndUpdate(
             req.params.id,
-            req.body,
-            {new:true,runValidators:true}
+            updatedata,
+            { new: true, runValidators: true }
         )
 
         if (!course) {
@@ -71,13 +83,15 @@ const deleteCourses = async (req, res) => {
     try {
 
         const course = await courses.findByIdAndDelete(req.params.id);
-        fs.unlink(course.course_img, (error) => {
-            console.log(error)
-        })
+
 
         if (!course) {
             return res.status(400).json({ data: null, message: "course not delete" + error.message })
         }
+
+        fs.unlink(course.course_img, (error) => {
+            console.log(error)
+        })
 
         return res.status(200).json({ data: course, message: "course delete succesfully" })
 
