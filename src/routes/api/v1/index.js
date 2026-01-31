@@ -20,6 +20,7 @@ const cardRouter = require('./card.routes')
 const certificateRouter = require('./certificate.routes')
 const blogRouter = require('./blog.routes')
 const termsconditionRouter = require('./terms_condition.routes')
+const register = require('./register.routes')
 
 //http://localhost:8080/api/v1/category
 router.use('/category',categoryRouter)
@@ -77,5 +78,8 @@ router.use('/blog',blogRouter)
 
 //http://localhost:8080/api/v1/termscondition
 router.use('/termscondition',termsconditionRouter)
+
+//http://localhost:8080/api/v1
+router.use('/register',register)
 
 module.exports = router
