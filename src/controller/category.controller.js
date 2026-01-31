@@ -33,18 +33,63 @@ const getCategories = async (req, res) => {
     }
 }
 
+const getparentCategories = async (req, res) => {
+    try {
+        const category = await categories.aggregate([
+            {
+                $match: {
+                    parent_category_id: null
+                }
+            }
+        ])
+
+        if (!category) {
+            return res.status(400).json({ data: [], message: "all category data not fetch" })
+        }
+
+        return res.status(200).json({ data: category, message: "active category data fetch succesfully" })
+
+    } catch (error) {
+        return res.status(400).json({ data: null, message: "internal server error at get active  category" + error.message })
+    }
+}
+
+const activeCategories = async (req, res) => {
+    try {
+        const category = await categories.aggregate([
+            {
+                $match: {
+                    isactive: true
+                }
+            },
+            {
+                $count: "active categories"
+            }
+        ])
+
+        if (!category) {
+            return res.status(400).json({ data: [], message: "all category data not fetch" })
+        }
+
+        return res.status(200).json({ data: category, message: "active category data fetch succesfully" })
+
+    } catch (error) {
+        return res.status(400).json({ data: null, message: "internal server error at get active  category" + error.message })
+    }
+}
+
 const addCategories = async (req, res) => {
     try {
 
-        console.log(req.file,req.body)
+        console.log(req.file, req.body)
 
-        const category = await categories.create({...req.body,category_img:req.file.path})
+        const category = await categories.create({ ...req.body, category_img: req.file.path })
 
         if (!category) {
             return res.status(400).json({ data: null, message: "category data not added" })
         }
 
-        return res.status(200).json({ category, message: "category data add succesfully" })
+        return res.status(200).json({ data: category, message: "category data add succesfully" })
 
     } catch (error) {
         return res.status(400).json({ data: null, message: "internal server error at add category" + error.message })
@@ -58,10 +103,10 @@ const updateCategories = async (req, res) => {
 
         const categorydata = await categories.findById(req.params.id);
 
-        let updatedata = {...req.body}
+        let updatedata = { ...req.body }
 
         if (req.file) {
-            fs.unlink(categorydata.category_img,(error) => {
+            fs.unlink(categorydata.category_img, (error) => {
                 console.log(error)
             })
 
@@ -93,7 +138,7 @@ const deleteCategories = async (req, res) => {
             return res.status(400).json({ data: null, message: "category not delete" })
         }
 
-        fs.unlink(category.category_img,(err) => {
+        fs.unlink(category.category_img, (error) => {
             console.log(error)
         })
 
@@ -109,5 +154,7 @@ module.exports = {
     getCategories,
     addCategories,
     updateCategories,
-    deleteCategories
+    deleteCategories,
+    activeCategories,
+    getparentCategories
 }

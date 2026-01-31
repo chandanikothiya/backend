@@ -10,6 +10,12 @@ router.get('/getallCategory',categoryController.getallCategories)
 router.get('/getCategory/:id',categoryController.getCategories)
 
 
+router.get('/getparentCategories',categoryController.getparentCategories)
+
+
+router.get('/activeCategories',categoryController.activeCategories)
+
+
 router.post('/addCategory',upload.single('category_img'),categoryController.addCategories)
 
 
