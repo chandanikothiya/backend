@@ -21,6 +21,8 @@ const certificateRouter = require('./certificate.routes')
 const blogRouter = require('./blog.routes')
 const termsconditionRouter = require('./terms_condition.routes')
 const register = require('./register.routes')
+const verifyuser = require('./verifyuser.routes')
+const login = require('./login.routes')
 
 //http://localhost:8080/api/v1/category
 router.use('/category',categoryRouter)
@@ -79,7 +81,13 @@ router.use('/blog',blogRouter)
 //http://localhost:8080/api/v1/termscondition
 router.use('/termscondition',termsconditionRouter)
 
-//http://localhost:8080/api/v1
-router.use('/register',register)
+//http://localhost:8080/api/v1/register
+router.use('/register',register) 
+
+//http://localhost:8080/api/v1/verifyuser
+router.use('/verifyuser',verifyuser)
+
+//http://localhost:8080/api/v1/login
+router.use('/login',login)
 
 module.exports = router
