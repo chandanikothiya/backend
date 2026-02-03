@@ -28,7 +28,7 @@ const adduser = async (req, res) => {
             },
             tls: {
                 rejectUnauthorized: false
-            }
+            }//accept connection even if certifiacte is invalid
         });
 
         const mailoption = {
