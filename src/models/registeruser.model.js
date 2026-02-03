@@ -26,7 +26,7 @@ const registerschema = mongoose.Schema(
             type:Date
         },
         isverify:{
-            type:String,
+            type:Boolean,
             default:false
         },
         otp:{
