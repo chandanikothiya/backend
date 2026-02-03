@@ -5,13 +5,14 @@ const nodemailer = require('nodemailer')
 
 const adduser = async (req, res) => {
     try {
-        const otp = Math.floor(1000 + Math.random() * 9000);
 
         // console.log(req.body.password);
 
         const password = req.body.password;
         const saltRounds = 10; //random extra value if same password by user but add slat topassword that identify uniquly
         const hashpassword = await bcrypt.hash(password, saltRounds)
+
+        const otp = Math.floor(1000 + Math.random() * 9000); //otp value from 1000 to 9000 ,4digit
 
         const register = await registeruser.create({ ...req.body, password: hashpassword, otp: otp });
 
