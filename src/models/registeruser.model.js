@@ -5,15 +5,16 @@ const registerschema = mongoose.Schema(
     {
         name:{
             type:String,
-            unique:true,
-            trim:true
+            trim:true,
+            required:true
         },
         email:{
             type:String,
-            trim:true
+            required:true
         },
         password:{
-            type:String
+            type:String,
+            require:true
         },
         role:{
             type:String,
@@ -23,7 +24,12 @@ const registerschema = mongoose.Schema(
             type:Number,
         },
         dob:{
-            type:Date
+            type:String,
+            required:true
+        },
+        gender:{
+            type:String,
+            required:true
         },
         isverify:{
             type:Boolean,
