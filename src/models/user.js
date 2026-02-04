@@ -37,6 +37,9 @@ const registerschema = mongoose.Schema(
         },
         otp:{
             type:Number
+        },
+        refreshtoken:{
+            type:String
         }
     },
     {
@@ -45,6 +48,6 @@ const registerschema = mongoose.Schema(
     }
 )
 
-const registeruser = mongoose.model('registeruser',registerschema);
+const registeruser = mongoose.model('users',registerschema);
 
 module.exports = registeruser

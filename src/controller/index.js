@@ -1,5 +1,3 @@
 module.exports.categoryController = require('./category.controller')
 module.exports.courseController = require('./course.controller')
-module.exports.registerController = require('./registeruser.controller')
-module.exports.verifyuserController = require('./verifyuser.controller')
-module.exports.loginuserController = require('./login.controller')
+module.exports.userController = require('./user.controller')

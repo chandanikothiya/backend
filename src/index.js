@@ -1,6 +1,8 @@
 require('dotenv').config()
 console.log(process.env.PORT)
 var cors = require('cors')
+const cookieParser = require('cookie-parser');
+
 
 const express = require('express')
 const app = express()
@@ -8,6 +10,7 @@ const routes = require('./routes/api/v1/index')
 const mongodbConnection = require('./db/dbconnection')
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.use('/public',express.static('public'))
 
