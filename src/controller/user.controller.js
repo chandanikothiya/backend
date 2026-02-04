@@ -267,7 +267,11 @@ const logout = async(req,res) => {
         })
 
     } catch (error) {
-        
+        return res.status(400).json({
+            success: false,
+            data: null,
+            message: 'internal server error at login user' + error.message
+        })
     }
 }
 
