@@ -138,7 +138,7 @@ const loginuser = async (req, res) => {
 
         console.log(accesstoken, refreshtoken)
 
-        //httpOnly: true means the cookie cannot be accessed by JavaScript and is only sent t
+        //httpOnly: true means the cookie cannot be accessed by JavaScript and is only sent to server
         res.cookie('accesstoken', accesstoken, { maxAge: 60 * 60, httpOnly: true })
         res.cookie('refreshtoken', refreshtoken, { maxAge: 60 * 60 * 24 * 7, httpOnly: true })
 
