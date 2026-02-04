@@ -138,27 +138,143 @@ const loginuser = async (req, res) => {
 
         console.log(accesstoken, refreshtoken)
 
-        //httpOnly: true means the cookie cannot be accessed by JavaScript and is only sent to server
-        res.cookie('accesstoken', accesstoken, { maxAge: 60 * 60 * 1000, httpOnly: true, secure: true })
-        res.cookie('refreshtoken', refreshtoken, { maxAge: 60 * 60 * 24 * 7 * 1000, httpOnly: true, secure: true })
+        const accoption = {
+            httpOnly: true,
+            secure: true,
+            samesite: null,
+            expire: 60 * 60 * 1000
+        }
 
-        return res.status(200).json({
-            success: true,
-            data: user,
-            message: 'Login successfully'
-        })
+        const refoption = {
+            httpOnly: true,
+            secure: true,
+            samesite: null,
+            expire: 60 * 60 * 24 * 7 * 1000
+        }
+
+        return res
+            .cookie('accesstoken',accesstoken,accoption)
+            .cookie('refreshtoken',refreshtoken,refoption)
+            .status(200).json({
+                success: true,
+                data: user,
+                message: 'Login successfully'
+            })
+
+        
 
     } catch (error) {
         return res.status(400).json({
             success: false,
             data: null,
-            message: 'internal server error at add user' + error.message
+            message: 'internal server error at login user' + error.message
         })
+    }
+}
+
+const genratenewtoken = async(req,res) => {
+
+    try {
+        
+        console.log(req.cookies)
+
+        const decodetoken = jwt.verify(req.cookies.refreshtoken,process.env.REFRESH_TOKEN_KEY);
+        console.log(decodetoken._id)
+
+        const user = await users.findById(decodetoken._id);
+
+        if (!user) {
+            return res.status(404).json({
+                success:false,
+                data:null,
+                message:'user not found'
+            })
+        }
+
+        if (user.refreshtoken !== req.cookies.refreshtoken) {
+             return res.status(400).json({
+                success:false,
+                data:null,
+                message:'not valid token'
+            })
+        }
+
+        const { accesstoken, refreshtoken } = await genratetoken(user._id);
+
+        const accoption = {
+            httpOnly: true,
+            secure: true,
+            samesite: null,
+            expire: 60 * 60 * 1000
+        }
+
+        const refoption = {
+            httpOnly: true,
+            secure: true,
+            samesite: null,
+            expire: 60 * 60 * 24 * 7 * 1000
+        }
+
+        return res
+            .cookie('accesstoken',accesstoken,accoption)
+            .cookie('refreshtoken',refreshtoken,refoption)
+            .status(200).json({
+                success: true,
+                data: user,
+                message: 'genrate token successfully'
+            })
+
+    } catch (error) {
+        return res.status(400).json({
+            success: false,
+            data: null,
+            message: 'internal server error at genrate token' + error.message
+        })
+    }
+
+}
+
+const logout = async(req,res) => {
+    try {
+        const { _id } = req.body;
+
+        const user = await users.findByIdAndUpdate(
+            _id,
+            {
+                $unset:{
+                    refreshtoken:1
+                }
+            },
+            {new:true}
+        )
+
+        if (!user) {
+            return res.status(400).json({
+                success:false,
+                data:null,
+                message:'user not logout'
+            })
+        }
+
+        res
+        .clearCookie("accesstoken")
+        .clearCookie("refreshtoken")
+        .status(200)
+        .json({
+            success:true,
+            data:null,
+            message:'user logout'
+        })
+
+    } catch (error) {
+        
     }
 }
 
 module.exports = {
     adduser,
     verifyuser,
-    loginuser
+    loginuser,
+    genratenewtoken,
+    logout
 }

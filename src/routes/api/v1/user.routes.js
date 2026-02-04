@@ -11,5 +11,11 @@ router.post('/verifyuser',userController.verifyuser)
 //http://localhost:8080/api/v1/user/loginuser
 router.post('/loginuser',userController.loginuser)
 
+//http://localhost:8080/api/v1/user/loginuser
+router.post('/genratenewtoken',userController.genratenewtoken)
+
+//http://localhost:8080/api/v1/user/logout
+router.post('/logout',userController.logout)
+
 
 module.exports = router
