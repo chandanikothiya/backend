@@ -3,6 +3,7 @@ const fs = require("fs")
 
 const getallCategories = async (req, res) => {
     try {
+        console.log(req.user)
         const category = await categories.find()
 
         if (!category) {

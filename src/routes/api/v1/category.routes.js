@@ -1,10 +1,11 @@
 const express = require('express');
 const { categoryController } = require('../../../controller');
 const upload = require('../../../middleware/upload');
+const auth = require('../../../middleware/auth');
 const router = express.Router();
 
 //http://localhost:8080/api/v1/category/getallCategory
-router.get('/getallCategory',categoryController.getallCategories)
+router.get('/getallCategory',auth,categoryController.getallCategories)
 
 
 router.get('/getCategory/:id',categoryController.getCategories)

@@ -23,7 +23,7 @@ app.use(cors({
 mongodbConnection()
 
 //http://localhost:8080/api/v1
-app.use('/api/v1', routes)
+app.use('/api/v1', routes) //All routes inside routes start with /api/v1
 
 app.listen(process.env.PORT, () => {
     console.log(`app run at port ${process.env.PORT}`)
