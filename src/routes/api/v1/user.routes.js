@@ -17,5 +17,8 @@ router.post('/genratenewtoken',userController.genratenewtoken)
 //http://localhost:8080/api/v1/user/logout
 router.post('/logout',userController.logout)
 
+//http://localhost:8080/api/v1/user/checkauth
+router.get('/checkauth',userController.checkauth)
+
 
 module.exports = router

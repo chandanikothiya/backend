@@ -2,6 +2,7 @@ const users = require("../models/user.model");
 const bcrypt = require('bcrypt');
 const sendmail = require("../service/nodemailer");
 const jwt = require("jsonwebtoken");
+const sendSMS = require("../service/sendsms");
 
 const genratetoken = async (_id) => {
     try {
@@ -62,7 +63,9 @@ const adduser = async (req, res) => {
 
 
 
-        await sendmail(email, 'registration otp', `Your otp is ${otp}`);
+        //await sendmail(email, 'registration otp', `Your otp is ${otp}`);
+
+        sendSMS(user.phone_no)
 
         const userdata = await users.findOne({ email }).select("-password -otp");
 
@@ -153,15 +156,15 @@ const loginuser = async (req, res) => {
         }
 
         return res
-            .cookie('accesstoken',accesstoken,accoption)
-            .cookie('refreshtoken',refreshtoken,refoption)
+            .cookie('accesstoken', accesstoken, accoption)
+            .cookie('refreshtoken', refreshtoken, refoption)
             .status(200).json({
                 success: true,
                 data: user,
                 message: 'Login successfully'
             })
 
-        
+
 
     } catch (error) {
         return res.status(400).json({
@@ -172,30 +175,30 @@ const loginuser = async (req, res) => {
     }
 }
 
-const genratenewtoken = async(req,res) => {
+const genratenewtoken = async (req, res) => {
 
     try {
-        
+
         console.log(req.cookies)
 
-        const decodetoken = jwt.verify(req.cookies.refreshtoken,process.env.REFRESH_TOKEN_KEY);
+        const decodetoken = jwt.verify(req.cookies.refreshtoken, process.env.REFRESH_TOKEN_KEY);
         console.log(decodetoken._id)
 
         const user = await users.findById(decodetoken._id);
 
         if (!user) {
             return res.status(404).json({
-                success:false,
-                data:null,
-                message:'user not found'
+                success: false,
+                data: null,
+                message: 'user not found'
             })
         }
 
         if (user.refreshtoken !== req.cookies.refreshtoken) {
-             return res.status(400).json({
-                success:false,
-                data:null,
-                message:'not valid token'
+            return res.status(400).json({
+                success: false,
+                data: null,
+                message: 'not valid token'
             })
         }
 
@@ -216,8 +219,8 @@ const genratenewtoken = async(req,res) => {
         }
 
         return res
-            .cookie('accesstoken',accesstoken,accoption)
-            .cookie('refreshtoken',refreshtoken,refoption)
+            .cookie('accesstoken', accesstoken, accoption)
+            .cookie('refreshtoken', refreshtoken, refoption)
             .status(200).json({
                 success: true,
                 data: user,
@@ -234,36 +237,83 @@ const genratenewtoken = async(req,res) => {
 
 }
 
-const logout = async(req,res) => {
+const logout = async (req, res) => {
     try {
         const { _id } = req.body;
 
         const user = await users.findByIdAndUpdate(
             _id,
             {
-                $unset:{
-                    refreshtoken:1
+                $unset: {
+                    refreshtoken: 1
                 }
             },
-            {new:true}
+            { new: true }
         )
 
         if (!user) {
             return res.status(400).json({
-                success:false,
-                data:null,
-                message:'user not logout'
+                success: false,
+                data: null,
+                message: 'user not logout'
             })
         }
 
         res
-        .clearCookie("accesstoken")
-        .clearCookie("refreshtoken")
-        .status(200)
-        .json({
-            success:true,
-            data:null,
-            message:'user logout'
+            .clearCookie("accesstoken")
+            .clearCookie("refreshtoken")
+            .status(200)
+            .json({
+                success: true,
+                data: null,
+                message: 'user logout'
+            })
+
+    } catch (error) {
+        return res.status(400).json({
+            success: false,
+            data: null,
+            message: 'internal server error at login user' + error.message
+        })
+    }
+}
+
+const checkauth = async (req, res) => {
+    try {
+        const token = req.cookies.accesstoken || req.header("Authorization")?.replace("bearer ", "");
+
+        if (!token) {
+            return res.status(404).json({
+                success: false,
+                data: null,
+                message: 'token not found'
+            })
+        }
+
+        const decodetoken = await jwt.verify(token, process.env.ACCESS_TOKEN_KEY);
+
+        if (!decodetoken) {
+            return res.status(400).json({
+                success: false,
+                data: null,
+                message: 'token not valid'
+            })
+        }
+
+        const user = await users.findById(decodetoken._id);
+
+        if (!user) {
+            return res.status(400).json({
+                success: false,
+                data: null,
+                message: 'user not found'
+            })
+        }
+
+        return res.status(200).json({
+            success: true,
+            data: user,
+            message: 'authorized user'
         })
 
     } catch (error) {
@@ -280,5 +330,6 @@ module.exports = {
     verifyuser,
     loginuser,
     genratenewtoken,
-    logout
+    logout,
+    checkauth
 }

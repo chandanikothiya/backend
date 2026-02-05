@@ -3,7 +3,6 @@ const fs = require("fs")
 
 const getallCategories = async (req, res) => {
     try {
-        console.log(req.user)
         const category = await categories.find()
 
         if (!category) {
@@ -82,7 +81,7 @@ const activeCategories = async (req, res) => {
 const addCategories = async (req, res) => {
     try {
 
-        console.log(req.file, req.body)
+        console.log(req.file, req.body,req.user)
 
         const category = await categories.create({ ...req.body, category_img: req.file.path })
 

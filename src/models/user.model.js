@@ -18,10 +18,11 @@ const registerschema = mongoose.Schema(
         },
         role:{
             type:String,
-            default:'student'
+            default:'user'
         },
         phone_no:{
-            type:Number,
+            type:String,
+            required:true
         },
         dob:{
             type:String,
