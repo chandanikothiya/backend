@@ -11,10 +11,10 @@ const googleprovider = () => {
             clientSecret:process.env.GOOGLE_CLIENT_SECRET,
             callbackURL: "http://localhost:8080/api/v1/user/auth/google/callback"
         },
-            function (accessToken, refreshToken, profile, cb) {
+            async function (accessToken, refreshToken, profile, cb) {
                 console.log(profile)
 
-                const user = users.create({
+                const user = await users.create({
                     name:profile.displayName,
                     email:profile.emails[0].value,
                     profileid:profile.id
