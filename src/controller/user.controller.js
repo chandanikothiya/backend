@@ -65,7 +65,7 @@ const adduser = async (req, res) => {
 
         //await sendmail(email, 'registration otp', `Your otp is ${otp}`);
 
-        sendSMS(user.phone_no)
+        sendSMS(user.phone_no,otp)
 
         const userdata = await users.findOne({ email }).select("-password -otp");
 
