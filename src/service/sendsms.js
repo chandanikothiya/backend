@@ -13,12 +13,11 @@ const sendSMS = (phone_no, otp) => {
 
         client.messages
             .create({
-                body: "your otp is"+otp,
-                messagingServiceSid:'MGe73022e59589a824799932785cd78a75',
+                body: "your otp is: " + otp,
+                messagingServiceSid: 'MGe73022e59589a824799932785cd78a75',
                 to: phone_no
             })
             .then(message => console.log(message.sid));
-
 
     } catch (error) {
         throw new Error("error in smssend" + error)

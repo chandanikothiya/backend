@@ -3,52 +3,51 @@ const { default: mongoose, version } = require("mongoose");
 
 const registerschema = mongoose.Schema(
     {
-        name:{
-            type:String,
-            trim:true,
-            required:true
+        name: {
+            type: String,
+            trim: true,
+            required: true
         },
-        email:{
-            type:String,
-            required:true
+        email: {
+            type: String,
+            required: true
         },
-        password:{
-            type:String,
-            require:true
+        password: {
+            type: String
         },
-        role:{
-            type:String,
-            default:'user'
+        role: {
+            type: String,
+            default: 'user'
         },
-        phone_no:{
-            type:String,
-            required:true
+        phone_no: {
+            type: String
         },
-        dob:{
-            type:String,
-            required:true
+        dob: {
+            type: String
         },
-        gender:{
-            type:String,
-            required:true
+        profileid: {
+            type: String
         },
-        isverify:{
-            type:Boolean,
-            default:false
+        gender: {
+            type: String
         },
-        otp:{
-            type:Number
+        isverify: {
+            type: Boolean,
+            default: false
         },
-        refreshtoken:{
-            type:String
+        otp: {
+            type: Number
+        },
+        refreshtoken: {
+            type: String
         }
     },
     {
-        timestamps:true,
-        versionKey:false
+        timestamps: true,
+        versionKey: false
     }
 )
 
-const registeruser = mongoose.model('users',registerschema);
+const registeruser = mongoose.model('users', registerschema);
 
 module.exports = registeruser
