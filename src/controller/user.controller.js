@@ -331,5 +331,6 @@ module.exports = {
     loginuser,
     genratenewtoken,
     logout,
-    checkauth
+    checkauth,
+    genratetoken
 }

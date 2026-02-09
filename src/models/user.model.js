@@ -10,7 +10,7 @@ const registerschema = mongoose.Schema(
         },
         email: {
             type: String,
-            required: true
+            //required: true
         },
         password: {
             type: String

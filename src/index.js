@@ -24,7 +24,8 @@ app.use(cors({
     credentials:true
 }))
 
-googleprovider() //jyare sever chalu thay tyare j google stahe connection banave
+googleprovider.googleprovider() //jyare sever chalu thay tyare j google stahe connection banave
+googleprovider.faceookprovider();
 
 mongodbConnection() //jyare sever chalu thay tyare j mongodb stahe connection banave
 
