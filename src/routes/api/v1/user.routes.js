@@ -2,6 +2,7 @@ const express = require('express');
 const { userController } = require('../../../controller');
 const passport = require('passport');
 const { genratetoken } = require('../../../controller/user.controller');
+const makepdf = require('../../../service/pdfmaker');
 const router = express.Router();
 
 //http://localhost:8080/api/v1/user/addRegister
@@ -78,5 +79,11 @@ router.get('/auth/facebook/callback',
     // Successful authentication, redirect home.
     res.redirect('/');
   });
+
+
+
+//http://localhost:8080/api/v1/user/createpdf
+router.get('/createpdf',makepdf)
+
 
 module.exports = router
