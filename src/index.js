@@ -7,6 +7,7 @@ const routes = require('./routes/api/v1/index')
 const mongodbConnection = require('./db/dbconnection');
 const passport = require('passport');
 const googleprovider = require('./service/provider');
+const connectsocketio = require('./service/socketIO');
 
 const app = express()
 
@@ -28,6 +29,8 @@ googleprovider.googleprovider() //jyare sever chalu thay tyare j google stahe co
 googleprovider.faceookprovider();
 
 mongodbConnection() //jyare sever chalu thay tyare j mongodb stahe connection banave
+connectsocketio();
+
 
 //http://localhost:8080/api/v1
 app.use('/api/v1', routes) //All routes inside routes start with /api/v1
