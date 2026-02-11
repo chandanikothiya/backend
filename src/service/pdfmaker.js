@@ -65,58 +65,260 @@ const makepdf = async () => {
                 margin: [0, 0, 0, 20]
             },
             {
+                alignment: 'justify',
+                columns: [
+                    {
+                        stack: [
+                            {
+                                text: [
+                                    { text: 'PAN No:', bold: true },
+                                    { text: 'EPSPK8990C' }
+                                ]
+                            },
+                            {
+                                text: [
+                                    { text: 'GST Registration No:', bold: true },
+                                    { text: '08EPSPK8990C1Z5' }
+                                ]
+                            }
+                        ],
+                    },
+                    {
+                        stack: [
+                            { text: 'Shipping Address :', bold: true, alignment: 'right' },
+                            { text: 'Ankitkumar Navinbhai dharsandiya', alignment: 'right' },
+                            { text: 'Ankitkumar Navinbhai dharsandiya', alignment: 'right' },
+                            { text: 'A1 402, Opera palm, Kholvad Road', alignment: 'right' },
+                            { text: 'SURAT, GUJARAT, 394185', alignment: 'right' },
+                            { text: 'IN', alignment: 'right' },
+                            {
+                                text: [
+                                    { text: 'State/UT Code:', bold: true },
+                                    { text: 24 }
+                                ], alignment: 'right'
+                            },
+                            {
+                                text: [
+                                    { text: 'Place of supply:', bold: true },
+                                    { text: 'GUJARAT' }
+                                ], alignment: 'right'
+                            },
+                            {
+                                text: [
+                                    { text: 'Place of delivery:', bold: true },
+                                    { text: 'GUJARAT' }
+                                ], alignment: 'right'
+                            }
+                        ],
+                    }
+                ],
+                margin: [0, 0, 0, 20]
+            },
+            {
+                alignment: 'justify',
+                columns: [
+                    {
+                        stack: [
+                            {
+                                text: [
+                                    { text: 'Order Number:', bold: true },
+                                    { text: '405-0419869-0333924' }
+                                ]
+                            },
+                            {
+                                text: [
+                                    { text: 'Order Date:', bold: true },
+                                    { text: '28.01.2025' }
+                                ]
+                            }
+                        ],
+                    },
+                    {
+                        stack: [
+                            {
+                                text: [
+                                    { text: 'Invoice Number :', bold: true },
+                                    { text: 'N-803' }
+                                ], alignment: 'right'
+                            },
+                            {
+                                text: [
+                                    { text: 'Invoice Details :', bold: true },
+                                    { text: 'RJ-315637153-2425' }
+                                ], alignment: 'right'
+                            },
+                            {
+                                text: [
+                                    { text: 'Invoice Date :', bold: true },
+                                    { text: '28.01.2025' }
+                                ], alignment: 'right'
+                            }
+                        ],
+                    }
+                ],
+                margin: [0, 0, 0, 20]
+            },
+            //table1
+            {
                 style: 'tableExample',
                 table: {
                     body: [
                         [
-                            {text:'SI.NO',fillColor:'#808080'},
-                            {text:'Description',fillColor:'#808080'},
-                            {text:'UNIT PRICE',fillColor:'#808080'},
-                            {text:'Qty',fillColor:'#808080'},
-                            {text:'NET AMOUNT',fillColor:'#808080'},
-                            {text:'TAX RATE',fillColor:'#808080'},
-                            {text:'TAX TYPE',fillColor:'#808080'},
-                            {text:'TAX AMOUNT',fillColor:'#808080'},
-                            {text:'Total AMOUNT',fillColor:'#808080'}
+                            { text: 'SI.NO', fillColor: '#808080' },
+                            { text: 'Description', fillColor: '#808080' },
+                            { text: 'UNIT PRICE', fillColor: '#808080' },
+                            { text: 'Qty', fillColor: '#808080' },
+                            { text: 'NET AMOUNT', fillColor: '#808080' },
+                            { text: 'TAX RATE', fillColor: '#808080' },
+                            { text: 'TAX TYPE', fillColor: '#808080' },
+                            { text: 'TAX AMOUNT', fillColor: '#808080' },
+                            { text: 'Total AMOUNT', fillColor: '#808080' }
                         ],
                         [
-                            {text:'1',rowSpan:2},
+                            { text: '1', rowSpan: 2 },
                             {
-                                text:'Google Review NFC Card Along with QR Code | Tap or Scan for\nReviews/Feedback | PVC Card with UV Print | Pre-Printed Multicolored\n| B0CYD64SY3 ( GRC1001 )\nHSN:5201',
-                                border:[true,true,true,false]
+                                text: 'Google Review NFC Card Along with QR Code | Tap or Scan for\nReviews/Feedback | PVC Card with UV Print | Pre-Printed Multicolored\n| B0CYD64SY3 ( GRC1001 )\nHSN:5201',
+                                border: [true, true, true, false]
                             },
-                            {text:"₹117.80",border:[true,true,true,false]},
-                            {text:"2",border:[true,true,true,false]},
-                            {text:"₹235.60",border:[true,true,true,false]},
-                            {text:"18%",border:[true,true,true,false]},
-                            {text:"IGST",border:[true,true,true,false]},
-                            {text:"₹42.40",border:[true,true,true,false]},
-                            {text:"₹278.00",border:[true,true,true,false]},
-                        ],
-                         [
-                            {text:""},
-                            {
-                                text:'Shipping Charges',
-                                border:[true,false,true,true]
-                            },
-                            {text:"₹33.90",border:[true,false,true,true]},
-                            {text:"",border:[true,false,true,true]},
-                            {text:"₹67.80",border:[true,false,true,true]},
-                            {text:"18%",border:[true,false,true,true]},
-                            {text:"IGST",border:[true,false,true,true]},
-                            {text:"₹12.20",border:[true,false,true,true]},
-                            {text:"₹80.00",border:[true,false,true,true]},
+                            { text: "₹117.80", border: [true, true, true, false] },
+                            { text: "2", border: [true, true, true, false] },
+                            { text: "₹235.60", border: [true, true, true, false] },
+                            { text: "18%", border: [true, true, true, false] },
+                            { text: "IGST", border: [true, true, true, false] },
+                            { text: "₹42.40", border: [true, true, true, false] },
+                            { text: "₹278.00", border: [true, true, true, false] },
                         ],
                         [
-                            {text:'TOTAL:',colSpan:7,alignment:'left'},
-                            '','','','','','',
-                            {text:'₹54.60',fillColor:'#808080'},
-                            {text:'₹358.00',fillColor:'#808080'}
-                        ]
+                            { text: "" },
+                            {
+                                text: 'Shipping Charges',
+                                border: [true, false, true, true]
+                            },
+                            { text: "₹33.90", border: [true, false, true, true] },
+                            { text: "", border: [true, false, true, true] },
+                            { text: "₹67.80", border: [true, false, true, true] },
+                            { text: "18%", border: [true, false, true, true] },
+                            { text: "IGST", border: [true, false, true, true] },
+                            { text: "₹12.20", border: [true, false, true, true] },
+                            { text: "₹80.00", border: [true, false, true, true] },
+                        ],
+                        [
+                            { text: 'TOTAL:', colSpan: 7, alignment: 'left' },
+                            '', '', '', '', '', '',
+                            { text: '₹54.60', fillColor: '#808080' },
+                            { text: '₹358.00', fillColor: '#808080' }
+                        ],
+                        [
+                            {
+                                colSpan: 9,
+                                stack: [
+                                    { text: 'For SUPER MARKETING:', bold: true },
+                                    { image: './public/images/sign.png', width: 100 },
+                                    { text: 'Authorized Signatory', bold: true }
+                                ], alignment: 'right'
+                            }, '', '', '', '', '', '', '', ''
+
+                        ],
+                    ]
+                },margin:[0,0,0,20]
+            },
+            'Whether tax is payable under reverse charge - No\n',
+            //table2
+            {
+                style: 'tableExample',
+                table: {
+                    body: [
+                        [
+                            {
+                                stack: [
+                                    {
+
+                                        text: [
+                                            { text: 'Payment Transaction ID:\n', bold: true },
+                                            { text: '1112wwZD1UzLIjSf7OFM9Vqkv' }
+                                        ]
+                                    }
+                                ],
+                            },
+                            {
+                                stack: [
+                                    {
+
+                                        text: [
+                                            { text: 'Date & Time:', bold: true },
+                                            { text: '28/01/2025, 19:09:00 hrs' }
+                                        ]
+                                    }
+                                ],
+                            },
+                            {
+                                rowSpan: 2,
+                                verticalAlignment: "middle",
+                                stack: [
+                                    {
+
+                                        text: [
+                                            { text: 'Invoice Value:\n', bold: true },
+                                            { text: '358.00' }
+                                        ]
+                                    }
+                                ],
+                            },
+                            {
+                                stack: [
+                                    {
+
+                                        text: [
+                                            { text: 'Mode of Payment:', bold: true },
+                                            { text: 'AmazonPay' }
+                                        ]
+                                    }
+                                ],
+                            },
+                        ],
+                        [
+                            {
+                                stack: [
+                                    {
+
+                                        text: [
+                                            { text: 'Payment Transaction ID:\n', bold: true },
+                                            { text: '1112rGnrZzfROO1OaWwcPbJwY' }
+                                        ]
+                                    }
+                                ],
+                            },
+                            {
+                                stack: [
+                                    {
+
+                                        text: [
+                                            { text: 'Date & Time:', bold: true },
+                                            { text: '28/01/2025, 19:09:00 hrs' }
+                                        ]
+                                    }
+                                ],
+                            },
+                            {
+                                rowSpan: 2,
+                                text: ''
+                            },
+                            {
+                                stack: [
+                                    {
+
+                                        text: [
+                                            { text: 'Mode of Payment:', bold: true },
+                                            { text: 'GiftCard' }
+                                        ]
+                                    }
+                                ],
+                            },
+                        ],
 
                     ]
-                }
-            }
+                },margin:[0,20,0,0]
+            },
         ],
 
     };
