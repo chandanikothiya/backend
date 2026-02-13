@@ -11,9 +11,18 @@ const connectsocketio = () => {
         io.on('connection', (socket) => {
             socket.emit('welcome', "welcome to chat")
             console.log('a user connected', socket.id);
-            socket.on('sendmsg', (data) => {
-                console.log("recivedata:",data);
-                socket.to(data.id).emit('recivemessage',data.message)
+            // socket.on('sendmsg', (data) => {
+            //     console.log("recivedata:",data);
+            //     socket.to(data.id).emit('recivemessage',data.message)
+            // })
+            socket.on('send_msg',(data) => {
+                //console.log(id,message);
+                io.to(data.id).emit('recive_msg',data.message)
+            })
+
+            socket.on('groupname',(group) => {
+                socket.join(group)
+                //console.log(group)
             })
         });
 
