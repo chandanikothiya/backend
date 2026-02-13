@@ -9,8 +9,12 @@ const connectsocketio = () => {
         });
 
         io.on('connection', (socket) => {
-            socket.emit('welcome',"welcome to chat")
-            console.log('a user connected',socket.id);
+            socket.emit('welcome', "welcome to chat")
+            console.log('a user connected', socket.id);
+            socket.on('sendmsg', (data) => {
+                console.log("recivedata:",data);
+                socket.to(data.id).emit('recivemessage',data.message)
+            })
         });
 
         io.listen(4000);
