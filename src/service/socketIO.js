@@ -17,7 +17,7 @@ const connectsocketio = () => {
             // })
             socket.on('send_msg',(data) => {
                 //console.log(id,message);
-                io.to(data.id).emit('recive_msg',data.message)
+                io.to(data.to).emit('recive_msg',data.message)
             })
 
             socket.on('groupname',(group) => {
