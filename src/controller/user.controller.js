@@ -2,7 +2,7 @@ const users = require("../models/user.model");
 const bcrypt = require('bcrypt');
 const sendmail = require("../service/nodemailer");
 const jwt = require("jsonwebtoken");
-const sendSMS = require("../service/sendsms");
+//const sendSMS = require("../service/sendsms");
 
 const genratetoken = async (_id) => {
     try {
@@ -63,9 +63,9 @@ const adduser = async (req, res) => {
 
 
 
-        //await sendmail(email, 'registration otp', `Your otp is ${otp}`);
+        await sendmail(email, 'registration otp', `Your otp is ${otp}`);
 
-        sendSMS(user.phone_no,otp)
+        //sendSMS(user.phone_no,otp)
 
         const userdata = await users.findOne({ email }).select("-password -otp");
 
