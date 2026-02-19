@@ -23,6 +23,14 @@ router.post('/logout', userController.logout)
 //http://localhost:8080/api/v1/user/checkauth
 router.get('/checkauth', userController.checkauth)
 
+//http://localhost:8080/api/v1/user/forgetpass
+router.post('/forgetpass', userController.forgetpass)
+
+//http://localhost:8080/api/v1/user/verifyemail
+router.post('/verifyemail', userController.verifyemail)
+
+//http://localhost:8080/api/v1/user/resetpassword
+router.post('/resetpassword', userController.resetpassword)
 
 
 //http://localhost:8080/api/v1/user/auth/google

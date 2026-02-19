@@ -325,6 +325,148 @@ const checkauth = async (req, res) => {
     }
 }
 
+const forgetpass = async (req, res) => {
+    try {
+        console.log(req.body)
+
+        const user = await users.findOne({ email: req.body.email })
+        console.log(user)
+
+        if (!user) {
+            return res.status(400).json({
+                success: false,
+                data: null,
+                message: 'email not found'
+            })
+        }
+
+        const forgetotp = Math.floor(1000 + Math.random() * 9000);
+        await sendmail(req.body.email, 'registration otp', `Your otp is ${forgetotp}`);
+
+        const responseuser = await users.findByIdAndUpdate(
+            user._id,
+            { foregtotp: forgetotp },
+            { new: true },
+            { runValidators: true }
+        )
+
+        if (!responseuser) {
+            return res.status(400).json({
+                success: false,
+                data: null,
+                message: 'user not update forgetotp'
+            })
+        }
+
+        const userdata = await users.findOne({ email: req.body.email }).select("-password -otp -foregtotp");
+
+        return res.status(200).json({
+            success: true,
+            data: userdata,
+            message: 'user is find'
+        })
+
+    } catch (error) {
+        return res.status(400).json({
+            success: false,
+            data: null,
+            message: 'internal server error at login user' + error.message
+        })
+    }
+}
+
+const verifyemail = async (req, res) => {
+    try {
+        const { email, otp } = req.body;
+
+        const user = await users.findOne({ email: email, foregtotp: otp })
+
+        if (!user) {
+            return res.status(400).json({
+                success: false,
+                data: null,
+                message: 'Invalid OTP'
+            })
+        }
+
+        user.forgetverify = true;
+
+        await user.save();
+
+        return res.status(200).json({
+            success: true,
+            data: user,
+            message: 'registration complete'
+        })
+
+
+    } catch (error) {
+        return res.status(400).json({
+            success: false,
+            data: null,
+            message: 'internal server error at add user' + error.message
+        })
+    }
+}
+
+const resetpassword = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        const user = await users.findOne({ email: email })
+        console.log(user)
+
+        if (!user) {
+            return res.status(200).json({
+                success: false,
+                data: null,
+                message: 'user not find by email'
+            })
+        }
+
+        const hashpassword = await bcrypt.hash(password, 10);
+
+        if (!user.forgetverify) {
+             return res.status(200).json({
+                success: false,
+                data: null,
+                message: 'verify email first'
+            })
+        }
+
+        const userdata = await users.findByIdAndUpdate(
+            user._id,
+            { password: hashpassword },
+            { new: true },
+            { runValidators: true }
+        )
+
+        if (!userdata) {
+            return res.status(200).json({
+                success: false,
+                data: null,
+                message: 'user password not update'
+            })
+        }
+
+        const userdisplay = await users.findOne({ email: email }).select("-password -otp -foregtotp");
+
+        return res.status(200).json({
+            success: true,
+            data: userdisplay,
+            message: 'forget password successfully'
+        })
+
+    } catch (error) {
+        return res.status(400).json({
+            success: false,
+            data: null,
+            message: 'internal server error at login user' + error.message
+        })
+    }
+}
+
+
 module.exports = {
     adduser,
     verifyuser,
@@ -332,5 +474,8 @@ module.exports = {
     genratenewtoken,
     logout,
     checkauth,
-    genratetoken
+    genratetoken,
+    forgetpass,
+    verifyemail,
+    resetpassword
 }
