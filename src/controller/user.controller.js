@@ -94,7 +94,7 @@ const verifyuser = async (req, res) => {
             return res.status(400).json({
                 success: false,
                 data: null,
-                message: 'Invalid Email or OTP'
+                message: 'Invalid OTP'
             })
         }
 
@@ -105,7 +105,7 @@ const verifyuser = async (req, res) => {
         return res.status(200).json({
             success: true,
             data: user,
-            message: 'Invalid Email or OTP'
+            message: 'registration complete'
         })
 
 
@@ -133,7 +133,7 @@ const loginuser = async (req, res) => {
             return res.status(400).json({
                 success: false,
                 data: null,
-                message: 'Invalid Email and Password'
+                message: 'Invalid Email or Password'
             })
         }
 
@@ -266,7 +266,7 @@ const logout = async (req, res) => {
             .json({
                 success: true,
                 data: null,
-                message: 'user logout'
+                message: 'Signout Sucessfully'
             })
 
     } catch (error) {
@@ -283,10 +283,10 @@ const checkauth = async (req, res) => {
         const token = req.cookies.accesstoken || req.header("Authorization")?.replace("bearer ", "");
 
         if (!token) {
-            return res.status(404).json({
+            return res.status(401).json({
                 success: false,
                 data: null,
-                message: 'token not found'
+                message: 'user SignOut'
             })
         }
 

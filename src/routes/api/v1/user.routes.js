@@ -54,12 +54,8 @@ router.get('/auth/google/callback',
     return res
       .cookie('accesstoken', accesstoken, accoption)
       .cookie('refreshtoken', refreshtoken, refoption)
-      .status(200).json({
-        success: true,
-        data: req.user,
-        message: 'Login successfully'
-      })
-
+      .status(200)
+      .redirect('http://localhost:5173/')
 
     // Successful authentication, redirect home.
     // res.redirect('/');
@@ -79,7 +75,6 @@ router.get('/auth/facebook/callback',
     // Successful authentication, redirect home.
     res.redirect('/');
   });
-
 
 
 //http://localhost:8080/api/v1/user/createpdf
