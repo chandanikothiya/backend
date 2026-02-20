@@ -40,13 +40,6 @@ const registerschema = mongoose.Schema(
         },
         refreshtoken: {
             type: String
-        },
-        foregtotp: {
-            type: Number,
-        },
-        forgetverify: {
-            type: Boolean,
-            default: false
         }
     },
     {

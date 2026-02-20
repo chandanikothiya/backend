@@ -120,10 +120,11 @@ const verifyuser = async (req, res) => {
 
 const loginuser = async (req, res) => {
     try {
-
-        const { email, password } = req.body;
+        console.log(req.body)
+        const { email, password} = req.body;
 
         const user = await users.findOne({ email: email });
+       
 
         console.log(user)
 
@@ -343,18 +344,21 @@ const forgetpass = async (req, res) => {
         const forgetotp = Math.floor(1000 + Math.random() * 9000);
         await sendmail(req.body.email, 'registration otp', `Your otp is ${forgetotp}`);
 
-        const responseuser = await users.findByIdAndUpdate(
-            user._id,
-            { foregtotp: forgetotp },
-            { new: true },
-            { runValidators: true }
-        )
+        // const responseuser = await users.findByIdAndUpdate(
+        //     user._id,
+        //     { foregtotp: forgetotp },
+        //     { new: true },
+        //     { runValidators: true }
+        // )
 
-        if (!responseuser) {
+        user.otp = forgetotp;
+        await user.save();
+
+        if (!user) {
             return res.status(400).json({
                 success: false,
                 data: null,
-                message: 'user not update forgetotp'
+                message: 'user not update otp'
             })
         }
 
@@ -375,39 +379,7 @@ const forgetpass = async (req, res) => {
     }
 }
 
-const verifyemail = async (req, res) => {
-    try {
-        const { email, otp } = req.body;
 
-        const user = await users.findOne({ email: email, foregtotp: otp })
-
-        if (!user) {
-            return res.status(400).json({
-                success: false,
-                data: null,
-                message: 'Invalid OTP'
-            })
-        }
-
-        user.forgetverify = true;
-
-        await user.save();
-
-        return res.status(200).json({
-            success: true,
-            data: user,
-            message: 'registration complete'
-        })
-
-
-    } catch (error) {
-        return res.status(400).json({
-            success: false,
-            data: null,
-            message: 'internal server error at add user' + error.message
-        })
-    }
-}
 
 const resetpassword = async (req, res) => {
     try {
@@ -426,7 +398,7 @@ const resetpassword = async (req, res) => {
 
         const hashpassword = await bcrypt.hash(password, 10);
 
-        if (!user.forgetverify) {
+        if (!user.isverify) {
              return res.status(200).json({
                 success: false,
                 data: null,
@@ -434,14 +406,17 @@ const resetpassword = async (req, res) => {
             })
         }
 
-        const userdata = await users.findByIdAndUpdate(
-            user._id,
-            { password: hashpassword },
-            { new: true },
-            { runValidators: true }
-        )
+        // const userdata = await users.findByIdAndUpdate(
+        //     user._id,
+        //     { password: hashpassword },
+        //     { new: true },
+        //     { runValidators: true }
+        // )
 
-        if (!userdata) {
+        user.password = hashpassword;
+        await user.save();
+
+        if (!user) {
             return res.status(200).json({
                 success: false,
                 data: null,
@@ -476,6 +451,5 @@ module.exports = {
     checkauth,
     genratetoken,
     forgetpass,
-    verifyemail,
     resetpassword
 }
