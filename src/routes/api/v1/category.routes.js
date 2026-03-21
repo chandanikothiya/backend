@@ -17,7 +17,7 @@ router.get('/getparentCategories',categoryController.getparentCategories)
 router.get('/activeCategories',categoryController.activeCategories)
 
 
-router.post('/addCategory',auth(['admin','employe','instructore','user']),upload.single('category_img'),categoryController.addCategories)
+router.post('/addCategory',upload.single('category_img'),categoryController.addCategories)
 
 
 router.put('/updateCategory/:id',upload.single('category_img'),categoryController.updateCategories)
@@ -26,3 +26,5 @@ router.put('/updateCategory/:id',upload.single('category_img'),categoryControlle
 router.delete('/deleteCategory/:id',categoryController.deleteCategories)
 
 module.exports = router
+
+//,auth(['admin','employe','instructore','user']),
