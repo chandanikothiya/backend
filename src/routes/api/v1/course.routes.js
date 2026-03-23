@@ -16,6 +16,7 @@ router.post('/addCourse',upload.single('course_img'),courseController.addCourses
 
 router.put('/updateCourse/:id',upload.single('course_img'),courseController.updateCourses)
 
+router.put('/updateStatus/:id',courseController.updateStatus)
 
 router.delete('/deleteCourse/:id',courseController.deleteCourses)
 

@@ -5,7 +5,7 @@ const fs = require("fs")
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
 
-    console.log("file",file)
+    console.log("mfile",file)
 
     const filepath = path.join('public','images',file.fieldname)
 

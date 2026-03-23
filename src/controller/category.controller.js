@@ -5,6 +5,9 @@ const getallCategories = async (req, res) => {
     try {
         const category = await categories.find()
 
+        console.log(category);
+        
+
         if (!category) {
             return res.status(400).json({ data: [], message: "all category data not fetch" })
         }
@@ -81,9 +84,10 @@ const activeCategories = async (req, res) => {
 const addCategories = async (req, res) => {
     try {
 
-        console.log(req.file, req.body,req.user)
+        console.log("cat",req.body)
 
-        const category = await categories.create({ ...req.body, category_img: req.file.path })
+       
+        const category = await categories.create({ ...req.body, category_img: req.file.path})
 
         if (!category) {
             return res.status(400).json({ data: null, message: "category data not added" })
