@@ -7,12 +7,13 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_SECREAT_KEY // Click 'View API Keys' above to copy your API secret
 });
 
-const cloudinaryupload = async () => {
+const cloudinaryupload = async (file,folder) => {
     try {
         const uploadResult = await cloudinary.uploader
             .upload(
-                'https://res.cloudinary.com/demo/image/upload/getting-started/shoes.jpg', {
+                file, {
                 public_id: 'shoes',
+                folder:folder
             }
             )
             .catch((error) => {
