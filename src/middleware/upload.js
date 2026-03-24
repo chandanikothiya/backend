@@ -9,9 +9,9 @@ const storage = multer.diskStorage({
 
     const filepath = path.join('public','images',file.fieldname)
 
-    fs.mkdir(filepath,{recursive:true},(error) => {
-        console.log(error)
-    })
+    // fs.mkdir(filepath,{recursive:true},(error) => {
+    //     console.log(error)
+    // })
     
     // cb(null, filepath) //cb is callback function first argument is for error and second is path,filename
     cb(null, '/tmp')
