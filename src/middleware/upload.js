@@ -14,7 +14,7 @@ const storage = multer.diskStorage({
     })
     
     // cb(null, filepath) //cb is callback function first argument is for error and second is path,filename
-    cb(null, '\tmp')
+    cb(null, '/tmp')
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
