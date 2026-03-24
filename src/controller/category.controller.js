@@ -7,7 +7,7 @@ const getallCategories = async (req, res) => {
         const category = await categories.find()
 
         console.log(category);
-        
+
 
         if (!category) {
             return res.status(400).json({ data: [], message: "all category data not fetch" })
@@ -85,13 +85,13 @@ const activeCategories = async (req, res) => {
 const addCategories = async (req, res) => {
     try {
 
-        console.log("cat",req.body)
+        console.log("cat", req.body)
 
-        const obj = await cloudinaryupload(req.file.path,"category")
+        const obj = await cloudinaryupload(req.file.path, "category")
 
-        const category = await categories.create({ ...req.body, category_img: {public_id:obj.public_id,url:obj.url}})
+        const category = await categories.create({ ...req.body, category_img: { public_id: obj.public_id, url: obj.url } })
 
-        
+
 
         if (!category) {
             return res.status(400).json({ data: null, message: "category data not added" })
@@ -110,6 +110,9 @@ const updateCategories = async (req, res) => {
     try {
 
         const categorydata = await categories.findById(req.params.id);
+
+        await cloudinarydelete(categorydata.category_img.public_id);
+
 
         let updatedata = { ...req.body }
 
