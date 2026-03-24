@@ -87,9 +87,11 @@ const addCategories = async (req, res) => {
 
         console.log("cat",req.body)
 
-        const category = await categories.create({ ...req.body, category_img: req.file.path})
+        const obj = await cloudinaryupload(req.file.path,"category")
 
-        await cloudinaryupload(req.file.path,"category")
+        const category = await categories.create({ ...req.body, category_img: {public_id:obj.public_id,url:obj.url}})
+
+        
 
         if (!category) {
             return res.status(400).json({ data: null, message: "category data not added" })

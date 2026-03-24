@@ -22,6 +22,11 @@ const cloudinaryupload = async (file,folder) => {
 
             console.log("uploadResult",uploadResult)
 
+            return {
+                public_id:uploadResult.public_id,
+                url:uploadResult.url
+            };
+
         console.log(uploadResult);
     } catch (error) {
         console.log(error)
