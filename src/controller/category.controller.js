@@ -87,8 +87,6 @@ const addCategories = async (req, res) => {
 
         console.log("cat",req.body)
 
-        
-       
         const category = await categories.create({ ...req.body, category_img: req.file.path})
 
         await cloudinaryupload(req.file.path,"category")
