@@ -8,11 +8,12 @@ cloudinary.config({
 });
 
 const cloudinaryupload = async (file,folder) => {
+    
     try {
         const uploadResult = await cloudinary.uploader
             .upload(
                 file, {
-                public_id: 'shoes',
+                public_id:file.name,
                 folder:folder
             }
             )
@@ -35,8 +36,8 @@ const cloudinaryupload = async (file,folder) => {
 
 const cloudinarydelete = async (public_id) => {
     try {
-       cloudinary.uploader.destroy(public_id)
-       .then(result => console.log(result))
+       const r = await cloudinary.uploader.destroy(public_id)
+       console.log(r)
     } catch (error) {
         console.log(error)
     }
