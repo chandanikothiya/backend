@@ -1,5 +1,6 @@
 const categories = require("../models/category.model")
-const fs = require("fs")
+const fs = require("fs");
+const { cloudinaryupload } = require("../service/cloudinary");
 
 const getallCategories = async (req, res) => {
     try {
@@ -86,8 +87,11 @@ const addCategories = async (req, res) => {
 
         console.log("cat",req.body)
 
+        
        
         const category = await categories.create({ ...req.body, category_img: req.file.path})
+
+        await cloudinaryupload(req.file.path,"category")
 
         if (!category) {
             return res.status(400).json({ data: null, message: "category data not added" })
