@@ -34,6 +34,12 @@ connectsocketio();
 //http://localhost:8080/api/v1
 app.use('/api/v1', routes) //All routes inside routes start with /api/v1
 
-app.listen(process.env.PORT, () => {
-    console.log(`app run at port ${process.env.PORT}`)
+app.get('/',(req,res) => {
+    res.send('welcome to lms backend')
 })
+
+// app.listen(process.env.PORT, () => {
+//     console.log(`app run at port ${process.env.PORT}`)
+// })
+
+module.exports = app;
