@@ -20,6 +20,8 @@ const cloudinaryupload = async (file,folder) => {
                 console.log(error);
             });
 
+            console.log("uploadResult",uploadResult)
+
         console.log(uploadResult);
     } catch (error) {
         console.log(error)
