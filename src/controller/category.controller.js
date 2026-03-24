@@ -1,6 +1,6 @@
 const categories = require("../models/category.model")
 const fs = require("fs");
-const { cloudinaryupload } = require("../service/cloudinary");
+const { cloudinaryupload, cloudinarydelete } = require("../service/cloudinary");
 
 const getallCategories = async (req, res) => {
     try {
@@ -140,15 +140,17 @@ const updateCategories = async (req, res) => {
 
 const deleteCategories = async (req, res) => {
     try {
-        const category = await categories.findByIdAndDelete(req.params.id)
+        const category = await categories.findByIdAndDelete(req.params.id);
+
+        cloudinarydelete(category.public_id);
 
         if (!category) {
             return res.status(400).json({ data: null, message: "category not delete" })
         }
 
-        fs.unlink(category.category_img, (error) => {
-            console.log(error)
-        })
+        // fs.unlink(category.category_img, (error) => {
+        //     console.log(error)
+        // })
 
         return res.status(200).json({ data: category, message: "category delete succesfully" })
 

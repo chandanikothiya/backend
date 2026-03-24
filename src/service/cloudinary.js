@@ -33,9 +33,10 @@ const cloudinaryupload = async (file,folder) => {
     }
 }
 
-const cloudinarydelete = async () => {
+const cloudinarydelete = async (public_id) => {
     try {
-       
+       cloudinary.uploader.destroy(public_id)
+       .then(result => console.log(result))
     } catch (error) {
         console.log(error)
     }
