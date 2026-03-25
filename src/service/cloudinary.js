@@ -13,7 +13,7 @@ const cloudinaryupload = async (file,folder) => {
         const uploadResult = await cloudinary.uploader
             .upload(
                 file, {
-                public_id:file.name,
+               
                 folder:folder
             }
             )

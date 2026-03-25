@@ -111,17 +111,20 @@ const updateCategories = async (req, res) => {
 
         const categorydata = await categories.findById(req.params.id);
 
-        await cloudinarydelete(categorydata.category_img.public_id);
+
 
 
         let updatedata = { ...req.body }
 
         if (req.file) {
-            fs.unlink(categorydata.category_img, (error) => {
-                console.log(error)
-            })
+            // fs.unlink(categorydata.category_img, (error) => {
+            //     console.log(error)
+            // })
+            await cloudinarydelete(categorydata.category_img.public_id);
 
-            updatedata.category_img = req.file.path
+            const obj = await cloudinaryupload(req.file.path, "category");
+
+            updatedata.category_img = {public_id:obj.public_id,url:obj.url}
         }
 
         const category = await categories.findByIdAndUpdate(
