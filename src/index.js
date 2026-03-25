@@ -35,7 +35,7 @@ connectsocketio();
 app.use('/api/v1', routes) //All routes inside routes start with /api/v1
 
 app.get('/',(req,res) => {
-    res.send('welcome to lms backend....')
+    res.send('welcome to lms backend..')
 })
 
 // app.listen(process.env.PORT, () => {
