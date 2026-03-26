@@ -107,14 +107,12 @@ const addCategories = async (req, res) => {
 }
 
 const updateCategories = async (req, res) => {
+    console.log("body",req.body)
     try {
 
         const categorydata = await categories.findById(req.params.id);
 
-
-
-
-        let updatedata = { ...req.body }
+        let updatedata = { ...req.body,category_img:{public_id:categorydata.category_img.public_id,url:categorydata.category_img.url} }
 
         if (req.file) {
             // fs.unlink(categorydata.category_img, (error) => {

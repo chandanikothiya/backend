@@ -20,6 +20,7 @@ app.use(passport.session());
 app.use('/public',express.static('public'))
 
 app.use(cors({
+    // https://elevate-knowledge-silk.vercel.app
     origin: 'https://elevate-knowledge-silk.vercel.app',
     optionsSuccessStatus: 200,
     credentials:true
