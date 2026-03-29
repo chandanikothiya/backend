@@ -21,7 +21,7 @@ app.use('/public',express.static('public'))
 
 app.use(cors({
     // https://elevate-knowledge-silk.vercel.app
-    origin: 'https://elevate-knowledge-silk.vercel.app',
+    origin: 'http://localhost:5173',
     optionsSuccessStatus: 200,
     credentials:true
 }))
@@ -39,8 +39,8 @@ app.get('/',(req,res) => {
     res.send('welcome to lms backend.')
 })
 
-// app.listen(process.env.PORT, () => {
-//     console.log(`app run at port ${process.env.PORT}`)
-// })
+app.listen(process.env.PORT, () => {
+    console.log(`app run at port ${process.env.PORT}`)
+})
 
 module.exports = app;

@@ -1,6 +1,7 @@
 const courses = require("../models/course.model")
 const { default: mongoose } = require("mongoose");
-const fs = require("fs")
+const fs = require("fs");
+const { cloudinaryupload } = require("../service/cloudinary");
 
 const getallCourses = async (req, res) => {
     try {
@@ -46,7 +47,10 @@ const addCourses = async (req, res) => {
 
         //    const course = await courses.create({ ...req.body, course_img: req.file.path, instructor_id: new mongoose.Types.ObjectId(req.body.instructor_id) })
 
-        const course = await courses.create({ ...req.body, course_img: req.file.path })
+
+        const obj = await cloudinaryupload(req.file.path, "course")
+
+        const course = await courses.create({ ...req.body, course_img: { public_id: obj.public_id, url: obj.url } })
 
         if (!course) {
             return res.status(400).json({ success: true, data: null, message: "course data not add" })
@@ -62,12 +66,14 @@ const updateCourses = async (req, res) => {
 
         const coursedata = await courses.findById(req.params.id);
 
-        let updatedata = { ...req.body }
+        let updatedata = { ...req.body, course_img: { public_id: coursedata.course_img.public_id, url: coursedata.course_img.url } }
 
         if (req.file) {
-            fs.unlink(coursedata.course_img, (error) => {
-                console.log(error)
-            })
+            // fs.unlink(coursedata.course_img, (error) => {
+            //     console.log(error)
+            // })
+
+            await cloudinarydelete(categorydata.category_img.public_id);
 
             updatedata.course_img = req.file.path
         }
@@ -103,8 +109,8 @@ const updateStatus = async (req, res) => {
         //     req.body,
         //     { new: true, runValidators: true }
         // )
-        
-        console.log("req.body.isactive",!req.body.isactive)
+
+        console.log("req.body.isactive", !req.body.isactive)
         course.isactive = !req.body.isactive
         await course.save();
 
@@ -122,6 +128,7 @@ const deleteCourses = async (req, res) => {
 
         const course = await courses.findByIdAndDelete(req.params.id);
 
+        await cloudinarydelete(course.course_img.public_id);
 
         if (!course) {
             return res.status(400).json({ data: null, message: "course not delete" + error.message })
