@@ -31,12 +31,13 @@ const courseschema = mongoose.Schema(
             required: true
         },
         course_img: {
-            public_id:{
-                type:String
-            },
-            url:{
-                type:String
-            }
+            type:String
+            // public_id:{
+            //     type:String
+            // },
+            // url:{
+            //     type:String
+            // }
         },
         isactive: {
             type: Boolean,
