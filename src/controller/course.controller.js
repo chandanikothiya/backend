@@ -1,7 +1,7 @@
 const courses = require("../models/course.model")
 const { default: mongoose } = require("mongoose");
 const fs = require("fs");
-const { cloudinaryupload } = require("../service/cloudinary");
+const { cloudinaryupload, cloudinarydelete } = require("../service/cloudinary");
 
 const getallCourses = async (req, res) => {
     try {
