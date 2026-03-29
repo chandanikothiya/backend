@@ -134,9 +134,9 @@ const deleteCourses = async (req, res) => {
             return res.status(400).json({ data: null, message: "course not delete" + error.message })
         }
 
-        fs.unlink(course.course_img, (error) => {
-            console.log(error)
-        })
+        // fs.unlink(course.course_img, (error) => {
+        //     console.log(error)
+        // })
 
         return res.status(200).json({ data: course, message: "course delete succesfully" })
 
