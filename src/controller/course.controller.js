@@ -66,16 +66,18 @@ const updateCourses = async (req, res) => {
 
         const coursedata = await courses.findById(req.params.id);
 
-        let updatedata = { ...req.body, course_img: { public_id: coursedata.course_img.public_id, url: coursedata.course_img.url } }
+        let updatedata = { ...req.body,course_img: { public_id: coursedata.course_img.public_id, url: coursedata.course_img.url } }
 
         if (req.file) {
             // fs.unlink(coursedata.course_img, (error) => {
             //     console.log(error)
             // })
 
-            await cloudinarydelete(categorydata.category_img.public_id);
+            await cloudinarydelete(coursedata.course_img.public_id);
 
-            updatedata.course_img = req.file.path
+            const obj = await cloudinaryupload(req.file.path, "course");
+
+            updatedata.course_img = {public_id:obj.public_id,url:obj.url}
         }
 
         const course = await courses.findByIdAndUpdate(

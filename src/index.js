@@ -9,7 +9,7 @@ const passport = require('passport');
 const googleprovider = require('./service/provider');
 const connectsocketio = require('./service/socketIO');
 const swaggerUi = require('swagger-ui-express');
-const swaggerFile = require('./swagger-output.json');
+// const swaggerFile = require('./swagger-output.json');
 
 const app = express()
 
@@ -42,10 +42,10 @@ app.get('/',(req,res) => {
 })
 
 // Swagger UI setup - This should be early in your middleware stack
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile, {
-  customCss: '.swagger-ui .topbar { display: none }',
-  customSiteTitle: "TechVoyage API Documentation"
-}));
+// app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile, {
+//   customCss: '.swagger-ui .topbar { display: none }',
+//   customSiteTitle: "TechVoyage API Documentation"
+// }));
 
 
 // app.listen(process.env.PORT, () => {
