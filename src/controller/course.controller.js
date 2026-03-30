@@ -4,6 +4,7 @@ const fs = require("fs");
 const { cloudinaryupload, cloudinarydelete } = require("../service/cloudinary");
 
 const getallCourses = async (req, res) => {
+    // #swagger.tags = ['Coures']
     try {
 
         const course = await courses.find()
@@ -20,6 +21,7 @@ const getallCourses = async (req, res) => {
 }
 
 const getCourses = async (req, res) => {
+    // #swagger.tags = ['Coures']
     try {
 
         const course = await courses.findById(req.params.id)
@@ -36,6 +38,7 @@ const getCourses = async (req, res) => {
 }
 
 const addCourses = async (req, res) => {
+    // #swagger.tags = ['Coures']
     console.log(req.body)
     console.log("file", req.file)
     try {
@@ -62,6 +65,7 @@ const addCourses = async (req, res) => {
 }
 
 const updateCourses = async (req, res) => {
+    // #swagger.tags = ['Coures']
     try {
 
         const coursedata = await courses.findById(req.params.id);
@@ -98,6 +102,7 @@ const updateCourses = async (req, res) => {
 }
 
 const updateStatus = async (req, res) => {
+    // #swagger.tags = ['Coures']
     try {
 
         const course = await courses.findById(req.params.id)
@@ -125,6 +130,7 @@ const updateStatus = async (req, res) => {
 }
 
 const deleteCourses = async (req, res) => {
+    // #swagger.tags = ['Coures']
     console.log("deleteid", req.params.id)
     try {
 

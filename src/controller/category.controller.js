@@ -3,6 +3,8 @@ const fs = require("fs");
 const { cloudinaryupload, cloudinarydelete } = require("../service/cloudinary");
 
 const getallCategories = async (req, res) => {
+    // #swagger.tags = ['Category'] //comment ma j rakhvanu compalsory
+    
     try {
         const category = await categories.find()
 
@@ -21,6 +23,7 @@ const getallCategories = async (req, res) => {
 }
 
 const getCategories = async (req, res) => {
+    // #swagger.tags = ['Category']
     try {
         console.log(req.params.id);
 
@@ -38,6 +41,7 @@ const getCategories = async (req, res) => {
 }
 
 const getparentCategories = async (req, res) => {
+    // #swagger.tags = ['Category']
     try {
         const category = await categories.aggregate([
             {
@@ -59,6 +63,7 @@ const getparentCategories = async (req, res) => {
 }
 
 const activeCategories = async (req, res) => {
+    // #swagger.tags = ['Category']
     try {
         const category = await categories.aggregate([
             {
@@ -83,6 +88,30 @@ const activeCategories = async (req, res) => {
 }
 
 const addCategories = async (req, res) => {
+    // #swagger.tags = ['Category']
+    // #swagger.consumes = ['multipart/form-data']
+    /* #swagger.parameters['name'] = {
+            in:'formData',                            
+            description:'Category_name',                   
+            required:true,                     
+            type:'string'
+        } 
+
+        #swagger.parameters['description'] = {
+            in:'formData',                            
+            description:'Category_description',                   
+            required:true,                     
+            type:'string'
+        } 
+
+        #swagger.parameters['category_img'] = {
+            in:'formData',                            
+            description:'Category_image',                   
+            required:true,                     
+            type:'file'
+        } 
+        
+        */
     try {
 
         console.log("cat", req.body)
@@ -107,12 +136,36 @@ const addCategories = async (req, res) => {
 }
 
 const updateCategories = async (req, res) => {
-    console.log("body",req.body)
+    // #swagger.tags = ['Category']
+    // #swagger.consumes = ['multipart/form-data']
+    /* #swagger.parameters['name'] = {
+            in:'formData',                            
+            description:'Category_name',                   
+            required:false,                     
+            type:'string'
+        } 
+
+        #swagger.parameters['description'] = {
+            in:'formData',                            
+            description:'Category_description',                   
+            required:false,                     
+            type:'string'
+        } 
+
+        #swagger.parameters['category_img'] = {
+            in:'formData',                            
+            description:'Category_image',                   
+            required:false,                     
+            type:'file'
+        } 
+        
+        */
+    console.log("body", req.body)
     try {
 
         const categorydata = await categories.findById(req.params.id);
 
-        let updatedata = { ...req.body,category_img:{public_id:categorydata.category_img.public_id,url:categorydata.category_img.url} }
+        let updatedata = { ...req.body, category_img: { public_id: categorydata.category_img.public_id, url: categorydata.category_img.url } }
 
         if (req.file) {
             // fs.unlink(categorydata.category_img, (error) => {
@@ -122,7 +175,7 @@ const updateCategories = async (req, res) => {
 
             const obj = await cloudinaryupload(req.file.path, "category");
 
-            updatedata.category_img = {public_id:obj.public_id,url:obj.url}
+            updatedata.category_img = { public_id: obj.public_id, url: obj.url }
         }
 
         const category = await categories.findByIdAndUpdate(
@@ -143,6 +196,7 @@ const updateCategories = async (req, res) => {
 }
 
 const deleteCategories = async (req, res) => {
+    // #swagger.tags = ['Category']
     try {
         const category = await categories.findByIdAndDelete(req.params.id);
 

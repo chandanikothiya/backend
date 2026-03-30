@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 //const sendSMS = require("../service/sendsms");
 
 const genratetoken = async (_id) => {
+    // #swagger.tags = ['Users']
     try {
         const user = await users.findById(_id);
 
@@ -32,7 +33,7 @@ const genratetoken = async (_id) => {
 }
 
 const adduser = async (req, res) => {
-
+// #swagger.tags = ['Users']
     try {
 
         const { email, password } = req.body;
@@ -85,6 +86,7 @@ const adduser = async (req, res) => {
 }
 
 const verifyuser = async (req, res) => {
+    // #swagger.tags = ['Users']
     try {
         const { email, otp } = req.body;
 
@@ -119,6 +121,7 @@ const verifyuser = async (req, res) => {
 }
 
 const loginuser = async (req, res) => {
+    // #swagger.tags = ['Users']
     try {
         console.log(req.body)
         const { email, password} = req.body;
@@ -177,7 +180,7 @@ const loginuser = async (req, res) => {
 }
 
 const genratenewtoken = async (req, res) => {
-
+// #swagger.tags = ['Users']
     try {
 
         console.log(req.cookies)
@@ -239,6 +242,7 @@ const genratenewtoken = async (req, res) => {
 }
 
 const logout = async (req, res) => {
+    // #swagger.tags = ['Users']
     try {
         const { _id } = req.body;
 
@@ -280,6 +284,7 @@ const logout = async (req, res) => {
 }
 
 const checkauth = async (req, res) => {
+    // #swagger.tags = ['Users']
     try {
         const token = req.cookies.accesstoken || req.header("Authorization")?.replace("bearer ", "");
 
@@ -327,6 +332,7 @@ const checkauth = async (req, res) => {
 }
 
 const forgetpass = async (req, res) => {
+    // #swagger.tags = ['Users']
     try {
         console.log(req.body)
 
@@ -379,9 +385,8 @@ const forgetpass = async (req, res) => {
     }
 }
 
-
-
 const resetpassword = async (req, res) => {
+    // #swagger.tags = ['Users']
     try {
         const { email, password } = req.body;
 

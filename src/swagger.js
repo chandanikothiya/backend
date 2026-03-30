@@ -1,41 +1,43 @@
 const swaggerAutogen = require('swagger-autogen')();
 
-
-require('dotenv').config();
 const doc = {
   info: {
-    title: 'Project name API v1.0',
-    description: 'Comprehensive API Documentation for Project name',
-    version: '1.0.0'
+    version: '1.0.0',            // by default: '1.0.0'
+    title: 'LMS Api',              // by default: 'REST API'
+    description: 'All api related LMS'         // by default: ''
   },
-  host: `https://backend-chi-rosy-95.vercel.app`,
-  schemes: ['http', 'https'],
-  consumes: ['application/json'],
-  produces: ['application/json'],
-  securityDefinitions: {
-    bearerAuth: {
-      type: 'apiKey',
-      name: 'Authorization',
-      in: 'header',
-      description: 'JWT token for authentication. Format: Bearer <token>'
-    },
-  },
-  security: [
+  host: 'localhost:8080/',                 // by default: 'localhost:3000'
+  basePath: 'api/v1',             // by default: '/'
+  schemes: [],              // by default: ['http']
+  consumes: [],             // by default: ['application/json']
+  produces: [],             // by default: ['application/json']
+  tags: [                   // by default: empty Array
     {
-      bearerAuth: []
-    }
-  ]
+      name: 'Category',             // Tag name
+      description: 'Category related api'       // Tag description
+    },
+    {
+      name: 'Coures',             // Tag name
+      description: 'Coures related api'       // Tag description
+    },
+    {
+      name: 'Terms',             // Tag name
+      description: 'Terms related api'       // Tag description
+    },
+    {
+      name: 'User',             // Tag name
+      description: 'User related api'       // Tag description
+    },
+    // { ... }
+  ],
+  securityDefinitions: {},  // by default: empty object
+  definitions: {}           // by default: empty object
 };
+
 const outputFile = './swagger-output.json';
-const endpointsFiles = [
-  './routes/api/v1/index.js'
-];
+const routes = ['./routes/api/v1/index.js'];
 
-const options = {
-  autoHeaders: true,
-  autoQuery: true,
-  autoBody: true,
-  autoQuery: true
-};
+/* NOTE: If you are using the express Router, you must pass in the 'routes' only the 
+root file where the route starts, such as index.js, app.js, routes.js, etc ... */
 
-swaggerAutogen(outputFile, endpointsFiles, doc, options);
+swaggerAutogen(outputFile, routes, doc);

@@ -4,6 +4,7 @@ const fs = require("fs");
 const pool = require("../db/mysqlconnection");
 
 const getallTerms = async (req, res) => {
+  // #swagger.tags = ['Terms']
   try {
     const [rows] = await pool.query('SELECT * FROM terms')
     console.log(rows)
@@ -28,7 +29,7 @@ const getTerms = async (req, res) => {
 }
 
 const addTerms = async (req, res) => {
-
+  // #swagger.tags = ['Terms']
   const { name, description } = req.body;
 
   try {
@@ -51,7 +52,7 @@ const addTerms = async (req, res) => {
 }
 
 const updateTerms = async (req, res) => {
-
+  // #swagger.tags = ['Terms']
   const { name, description } = req.body;
 
   try {
@@ -61,13 +62,13 @@ const updateTerms = async (req, res) => {
 
     const updatename = name !== '' ? name : rows1[0].name;
     const updatedescription = description !== '' && description !== undefined ? description : rows1[0].description;
-    console.log(updatename,updatedescription)
+    console.log(updatename, updatedescription)
 
     const [rows] = await pool.query(`UPDATE terms SET name=?,description=? WHERE id=?`, [updatename, updatedescription, req.params.id])
 
     res.status(200).json({
       success: "true",
-      data: { name, description ,id:req.params.id},
+      data: { name, description, id: req.params.id },
       message: "terms is updated"
     })
   } catch (error) {
@@ -80,6 +81,7 @@ const updateTerms = async (req, res) => {
 }
 
 const deleteTerms = async (req, res) => {
+  // #swagger.tags = ['Terms']
   try {
     const [rows] = await pool.query(`DELETE FROM terms WHERE id=?`, [req.params.id]);
 
