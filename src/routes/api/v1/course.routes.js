@@ -4,6 +4,7 @@ const upload = require('../../../middleware/upload');
 const router = express.Router();
 
 
+
 //http://localhost:8080/api/v1/course/getallCourse
 router.get('/getallCourse',courseController.getallCourses)
 

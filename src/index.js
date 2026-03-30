@@ -8,6 +8,8 @@ const mongodbConnection = require('./db/dbconnection');
 const passport = require('passport');
 const googleprovider = require('./service/provider');
 const connectsocketio = require('./service/socketIO');
+const swaggerUi = require('swagger-ui-express');
+const swaggerFile = require('./swagger-output.json');
 
 const app = express()
 
@@ -36,8 +38,15 @@ connectsocketio();
 app.use('/api/v1', routes) //All routes inside routes start with /api/v1
 
 app.get('/',(req,res) => {
-    res.send('welcome to lms backend.....')
+    res.send('welcome to lms backend...')
 })
+
+// Swagger UI setup - This should be early in your middleware stack
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile, {
+  customCss: '.swagger-ui .topbar { display: none }',
+  customSiteTitle: "TechVoyage API Documentation"
+}));
+
 
 // app.listen(process.env.PORT, () => {
 //     console.log(`app run at port ${process.env.PORT}`)
