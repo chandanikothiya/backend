@@ -11,11 +11,10 @@ router.get('/getallCourse',courseController.getallCourses)
 
 router.get('/getCourse/:id',courseController.getCourses)
 
+//upload.array('course_img', 10)
+router.post('/addCourse',upload.fields([{ name: 'course_img', maxCount: 10 }, { name: 'course_video', maxCount:1 }]),courseController.addCourses)
 
-router.post('/addCourse',upload.single('course_img'),courseController.addCourses)
-
-
-router.put('/updateCourse/:id',upload.single('course_img'),courseController.updateCourses)
+router.put('/updateCourse/:id',upload.fields([{ name: 'course_img', maxCount: 10 }, { name: 'course_video', maxCount:1 }]),courseController.updateCourses)
 
 router.put('/updateStatus/:id',courseController.updateStatus)
 

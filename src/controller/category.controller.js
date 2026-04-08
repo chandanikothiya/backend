@@ -89,6 +89,9 @@ const activeCategories = async (req, res) => {
 
 const addCategories = async (req, res) => {
     // #swagger.tags = ['Category']
+    /* #swagger.security = [{
+            "apiKeyAuth": []
+    }] */
     // #swagger.consumes = ['multipart/form-data']
     /* #swagger.parameters['name'] = {
             in:'formData',                            
@@ -137,6 +140,9 @@ const addCategories = async (req, res) => {
 
 const updateCategories = async (req, res) => {
     // #swagger.tags = ['Category']
+    /* #swagger.security = [{
+            "apiKeyAuth": []
+    }] */
     // #swagger.consumes = ['multipart/form-data']
     /* #swagger.parameters['name'] = {
             in:'formData',                            
@@ -196,7 +202,11 @@ const updateCategories = async (req, res) => {
 }
 
 const deleteCategories = async (req, res) => {
+    
     // #swagger.tags = ['Category']
+    /* #swagger.security = [{
+            "apiKeyAuth": []
+    }] */
     try {
         const category = await categories.findByIdAndDelete(req.params.id);
 

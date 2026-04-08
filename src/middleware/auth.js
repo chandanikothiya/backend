@@ -7,14 +7,13 @@ const auth = (roles) => async (req, res, next) => {
 
         //console.log(roles,req.cookies,req.header("Authorization"))
 
-        const token = req.cookies.accesstoken || req.header("Authorization")?.replace('bearer ', "");
-        console.log(token)
+        const token = req.cookies?.accesstoken || req.header("Authorization")?.replace('Bearer ', "");
+        console.log("token",token)
 
         const decodetoken = await jwt.verify(token, process.env.ACCESS_TOKEN_KEY)
         console.log(decodetoken)
 
         const users = await user.findById(decodetoken._id);
-
         if (!users) {
             res.status(404).json({
                 success: false,
@@ -23,7 +22,7 @@ const auth = (roles) => async (req, res, next) => {
             })
         }
 
-        if (!roles.includes(users.role)) {
+        if (!roles.includes(users.role)) {g
             res.status(400).json({
                 success: false,
                 data: null,

@@ -8,11 +8,11 @@ const courseschema = mongoose.Schema(
             ref: 'categories',
             required: true
         },
-        // instructor_id:{
-        //     type: mongoose.Types.ObjectId,
-        //     ref: 'users',
-        //     required:true
-        // },
+        instructor_id:{
+            type: mongoose.Types.ObjectId,
+            ref: 'users',
+            required:true
+        },
         name: {
             type: String,
             trim: true,
@@ -30,7 +30,16 @@ const courseschema = mongoose.Schema(
             type: Number,
             required: true
         },
-        course_img: {
+        course_img: [{
+            // type:String
+            public_id:{
+                type:String
+            },
+            url:{
+                type:String
+            }
+        }],
+        course_video: {
             // type:String
             public_id:{
                 type:String

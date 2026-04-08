@@ -22,6 +22,7 @@ const blogRouter = require('./blog.routes')
 const termsconditionRouter = require('./terms_condition.routes')
 const user = require('./user.routes')
 const termsRouter  = require('./terms.routes')
+const demoRouter  = require('./demo.routes')
 
 //http://localhost:8080/api/v1/category
 router.use('/category',categoryRouter)
@@ -86,5 +87,7 @@ router.use('/user',user)
 //http://localhost:8080/api/v1/terms
 router.use('/terms',termsRouter) 
 
+
+router.use('/demo',demoRouter) 
 
 module.exports = router
