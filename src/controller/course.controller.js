@@ -126,8 +126,8 @@ const updateCourses = async (req, res) => {
                 await cloudinarydelete(coursedata.course_video.public_id);
 
                 const obj1 = await cloudinaryupload(files.course_video[0].path, "course_video");
-                
-                updatedata.course_video = {public_id:obj1.public_id,url:obj1.url}
+
+                updatedata.course_video = { public_id: obj1.public_id, url: obj1.url }
             }
 
 
@@ -190,7 +190,19 @@ const deleteCourses = async (req, res) => {
 
         const course = await courses.findByIdAndDelete(req.params.id);
 
-        await cloudinarydelete(course.course_img.public_id);
+        console.log(course)
+
+        // course.course_img.map((v) => {
+        //     await cloudinarydelete(course.course_img.public_id);
+        // })
+
+        for (let i = 0; i < course.course_img.length; i++) {
+            await cloudinarydelete(course.course_img[i].public_id,'image');
+        }
+
+        await cloudinarydelete(course.course_video.public_id,'video');
+
+        // await cloudinarydelete(course.course_img.public_id);
 
         if (!course) {
             return res.status(400).json({ data: null, message: "course not delete" + error.message })

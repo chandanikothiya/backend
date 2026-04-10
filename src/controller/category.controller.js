@@ -210,7 +210,7 @@ const deleteCategories = async (req, res) => {
     try {
         const category = await categories.findByIdAndDelete(req.params.id);
 
-        await cloudinarydelete(category.category_img.public_id);
+        await cloudinarydelete(category.category_img.public_id,'image');
 
         if (!category) {
             return res.status(400).json({ data: null, message: "category not delete" })
