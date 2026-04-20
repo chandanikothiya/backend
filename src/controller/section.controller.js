@@ -110,6 +110,7 @@ const updatesection = async (req, res) => {
 
 const deletesection = async (req, res) => {
     try {
+       // consoe.log(req.params.id)
         const check = await section.findById(req.params.id)
 
         if (!check) {

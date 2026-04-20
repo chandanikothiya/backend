@@ -66,7 +66,7 @@ const addCourses = async (req, res) => {
         }
         return res.status(200).json({ data: course, message: "course data add succesfully" })
     } catch (error) {
-        return res.status(400).json({ data: null, message: "internal server error at add course" + error.message })
+        return res.status(500).json({ data: null, message: "internal server error at add course" + error.message })
     }
 }
 
