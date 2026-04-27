@@ -121,7 +121,7 @@ const updatequize = async (req, res) => {
     }
 }
 
-const deletequize = async (req, res) => {
+const deletequize = async (req, res) => { 
     try {
         console.log(typeof req.params.id,req.body)
         const checkquize = await quize.findById(req.params.id);

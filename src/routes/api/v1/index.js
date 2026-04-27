@@ -23,6 +23,7 @@ const termsconditionRouter = require('./terms_condition.routes')
 const user = require('./user.routes')
 const termsRouter  = require('./terms.routes')
 const demoRouter  = require('./demo.routes')
+const questionRouter  = require('./question.routes')
 
 //http://localhost:8080/api/v1/category
 router.use('/category',categoryRouter)
@@ -89,5 +90,7 @@ router.use('/terms',termsRouter)
 
 
 router.use('/demo',demoRouter) 
+
+router.use('/question',questionRouter) 
 
 module.exports = router
