@@ -1,21 +1,15 @@
-const express = require('express')
+const express = require('express');
+const { resultController } = require('../../../controller');
 const router = express.Router();
 
 //http://localhost:8080/api/v1/result/getallResult
-router.get('/getallResult',(req,res) => {
-    res.status(200).json({message:'all Result fetch'})
-})
+router.get('/getallresult',resultController.getallresult)
 
 
-router.get('/getResult',(req,res) => {
-    res.status(200).json({id:1,name:'uiux'})
-})
+router.get('/getresult/:id',resultController.getresult)
 
 
-router.post('/addResult',(req,res) => {
-    console.log(req.body);
-    res.status(200).json({message:'add new Result'})
-})
+router.post('/addresult',resultController.addresult)
 
 
 router.put('/updateResult/:id',(req,res) => {

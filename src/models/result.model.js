@@ -26,5 +26,5 @@ const resultquizeschema = mongoose.Schema({
     versionKey: false
 })
 
-const result = mongoose.model('quize', resultquizeschema)
+const result = mongoose.model('result', resultquizeschema)
 module.exports = result;

@@ -1,21 +1,15 @@
-const express = require('express')
+const express = require('express');
+const { wishlistController } = require('../../../controller');
 const router = express.Router();
 
 //http://localhost:8080/api/v1/wishlist/getallWishlist
-router.get('/getallWishlist',(req,res) => {
-    res.status(200).json({message:'all Wishlist fetch'})
-})
+router.get('/getallwishlist',wishlistController.getallwishlist)
 
 
-router.get('/getWishlist',(req,res) => {
-    res.status(200).json({id:1,name:'uiux'})
-})
+router.get('/getwishlist/:id',wishlistController.getwishlist)
 
 
-router.post('/addWishlist',(req,res) => {
-    console.log(req.body);
-    res.status(200).json({message:'add new Wishlist'})
-})
+router.post('/addwishlist',wishlistController.addwishlist)
 
 
 router.put('/updateWishlist/:id',(req,res) => {
@@ -24,9 +18,6 @@ router.put('/updateWishlist/:id',(req,res) => {
 })
 
 
-router.delete('/deleteWishlist/:id',(req,res) => {
-    console.log(req.params.id)
-    res.status(200).json({message:'delete Wishlist'})
-})
+router.delete('/deletewishlist/:id',wishlistController.deleteWishlist)
 
 module.exports = router
