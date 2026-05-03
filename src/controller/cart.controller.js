@@ -1,24 +1,24 @@
-const wishlist = require('../models/wishlist.model')
+const cart = require('../models/cart.model')
 
-const getallwishlist = async (req, res) => {
+const getallcart = async (req, res) => {
     try {
 
-        const wishlistdata = await wishlist.find()
+        const cartdata = await cart.find()
 
-        if (!wishlistdata) {
+        if (!cartdata) {
             return res.status(400)
                 .json({
                     suucess: false,
                     data: null,
-                    message: "wishlistdata not get"
+                    message: "cart not get"
                 })
         }
 
         return res.status(200)
             .json({
                 suucess: true,
-                data: wishlistdata,
-                message: "wishlistdata get"
+                data: cartdata,
+                message: "cart get"
             })
 
 
@@ -27,30 +27,30 @@ const getallwishlist = async (req, res) => {
             .json({
                 suucess: false,
                 data: null,
-                message: "internal server error at wishlist get " + error.message
+                message: "internal server error at cart get " + error.message
             })
     }
 }
 
-const getwishlist = async (req, res) => {
+const getcart = async (req, res) => {
     try {
 
-        const wishlistdata = await wishlist.findOne({ user_id: req.params.id })
+        const cartdata = await cart.findOne({ user_id: req.params.id })
 
-        if (!wishlistdata) {
+        if (!cartdata) {
             return res.status(400)
                 .json({
                     suucess: false,
                     data: null,
-                    message: "wishlistdata not get"
+                    message: "cartdata not get"
                 })
         }
 
         return res.status(200)
             .json({
                 suucess: true,
-                data: wishlistdata,
-                message: "wishlistdata get"
+                data: cartdata,
+                message: "cartdata get"
             })
 
 
@@ -59,15 +59,14 @@ const getwishlist = async (req, res) => {
             .json({
                 suucess: false,
                 data: null,
-                message: "internal server error at wishlist get " + error.message
+                message: "internal server error at cartdata get " + error.message
             })
     }
 }
 
-const addwishlist = async (req, res) => {
+const addcart = async (req, res) => {
     try {
-
-        const check = await wishlist.findOne({ user_id: req.body.user_id });
+        const check = await cart.findOne({ user_id: req.body.user_id });
         console.log(check)
 
         if (check) {
@@ -79,7 +78,7 @@ const addwishlist = async (req, res) => {
                     .json({
                         suucess: false,
                         data: null,
-                        message: "wishlistdata not updated"
+                        message: "cartdata not updated"
                     })
             }
 
@@ -87,27 +86,27 @@ const addwishlist = async (req, res) => {
                 .json({
                     suucess: true,
                     data: check,
-                    message: "wishlistdata updated"
+                    message: "cartdata updated"
                 })
         } else {
             const course = { course_id: req.body.course_id }
 
-            const wishlistdata = await wishlist.create({ ...req.body, course: course })
+            const cartdata = await cart.create({ ...req.body, course: course })
 
-            if (!wishlistdata) {
+            if (!cartdata) {
                 return res.status(400)
                     .json({
                         suucess: false,
                         data: null,
-                        message: "wishlistdata not add"
+                        message: "cartdata not add"
                     })
             }
 
             return res.status(200)
                 .json({
                     suucess: true,
-                    data: wishlistdata,
-                    message: "wishlistdata add"
+                    data: cartdata,
+                    message: "cartdata add"
                 })
         }
 
@@ -116,37 +115,37 @@ const addwishlist = async (req, res) => {
             .json({
                 suucess: false,
                 data: null,
-                message: "internal server error at wishlist add " + error.message
+                message: "internal server error at cartdata add " + error.message
             })
     }
 }
 
-const deleteWishlist = async (req, res) => {
+const deletecart = async (req, res) => {
     try {
 
-        const wishlistdata = await wishlist.findById(req.params.id);
+        const cartdata = await cart.findById(req.params.id);
 
-        console.log(wishlistdata,req.body.course_id)
+        console.log("cartdata",cartdata,req.body.course_id)
 
-        const newcorse = wishlistdata.course.filter((v) => v.course_id.toString() !== req.body.course_id.toString())
-        console.log(newcorse.course)
-        wishlistdata.course = newcorse;
-        await wishlistdata.save();
+        const newcorse = cartdata.course.filter((v) => v.course_id.toString() !== req.body.course_id.toString())
+        console.log(newcorse)
+        cartdata.course = newcorse;
+        await cartdata.save();
 
-        if (!wishlistdata) {
+        if (!cartdata) {
             return res.status(400)
                 .json({
                     suucess: false,
                     data: null,
-                    message: "wishlistdata not delete"
+                    message: "cartdata not delete"
                 })
         }
 
         return res.status(200)
             .json({
                 suucess: true,
-                data: wishlistdata,
-                message: "wishlistdata delete"
+                data: cartdata,
+                message: "cartdata delete"
             })
 
     } catch (error) {
@@ -154,14 +153,14 @@ const deleteWishlist = async (req, res) => {
             .json({
                 suucess: false,
                 data: null,
-                message: "internal server error at wishlist delete " + error.message
+                message: "internal server error at cartdata delete " + error.message
             })
     }
 }
 
 module.exports = {
-    addwishlist,
-    getallwishlist,
-    getwishlist,
-    deleteWishlist
+    addcart,
+    getallcart,
+    getcart,
+    deletecart
 }
