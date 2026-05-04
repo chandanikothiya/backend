@@ -86,7 +86,7 @@ const addcart = async (req, res) => {
                 .json({
                     suucess: true,
                     data: check,
-                    message: "cartdata updated"
+                    message: "course add to cart"
                 })
         } else {
             const course = { course_id: req.body.course_id }
@@ -106,7 +106,7 @@ const addcart = async (req, res) => {
                 .json({
                     suucess: true,
                     data: cartdata,
-                    message: "cartdata add"
+                    message: "course add to cart"
                 })
         }
 

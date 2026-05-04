@@ -123,10 +123,10 @@ const addwishlist = async (req, res) => {
 
 const deleteWishlist = async (req, res) => {
     try {
+        console.log(req.body)
+        const wishlistdata = await wishlist.findOne({user_id:req.params.id});
 
-        const wishlistdata = await wishlist.findById(req.params.id);
-
-        console.log(wishlistdata,req.body.course_id)
+        console.log("wishlistdata",wishlistdata,req.body.course_id)
 
         const newcorse = wishlistdata.course.filter((v) => v.course_id.toString() !== req.body.course_id.toString())
         console.log(newcorse.course)
