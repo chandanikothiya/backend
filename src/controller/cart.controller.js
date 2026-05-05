@@ -70,13 +70,26 @@ const addcart = async (req, res) => {
         console.log(check)
 
         if (check) {
+
+            const checkcourse = check.course.some((v) => v.course_id.toString() === req.body.course_id.toString())
+            console.log("checkcourse",checkcourse,req.body.course_id,check)
+
+            if (checkcourse) {
+                return res.status(400)
+                    .json({
+                        success: false,
+                        data: null,
+                        message: "course alerdy exists in cart"
+                    })
+            }
+
             check.course.push({ course_id: req.body.course_id })
             await check.save();
 
             if (!check) {
                 return res.status(400)
                     .json({
-                        suucess: false,
+                        success: false,
                         data: null,
                         message: "cartdata not updated"
                     })
@@ -84,7 +97,7 @@ const addcart = async (req, res) => {
 
             return res.status(200)
                 .json({
-                    suucess: true,
+                    success: true,
                     data: check,
                     message: "course add to cart"
                 })
@@ -122,10 +135,10 @@ const addcart = async (req, res) => {
 
 const deletecart = async (req, res) => {
     try {
-
+        console.log("cid", req.body.course_id)
         const cartdata = await cart.findById(req.params.id);
 
-        console.log("cartdata",cartdata,req.body.course_id)
+        console.log("cartdata", cartdata, req.body.course_id)
 
         const newcorse = cartdata.course.filter((v) => v.course_id.toString() !== req.body.course_id.toString())
         console.log(newcorse)
