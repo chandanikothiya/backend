@@ -5,6 +5,12 @@ const router = express.Router();
 //http://localhost:8080/api/v1/payment/getallPayment
 router.get('/createpayment',paymentController.createpayment)
 
+router.get('/successpayment',paymentController.successpayment)
+
+router.get('/failedpayment',paymentController.failedpayment)
+
+
+
 router.get('/getallPayment',(req,res) => {
     res.status(200).json({message:'all Payment fetch'})
 })
